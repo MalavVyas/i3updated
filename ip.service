@@ -1,0 +1,18 @@
+#This file is used as a script for virtual machine to send it's ip address over slack.
+#combined with the systemd module, guest os will send it's ip address right after booting up
+#this is useful when you use virtual machine in headless mdoe and communicate over ssh
+
+#systemd module
+
+
+[Unit]
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/sh /usr/bin/ip.sh
+[Install]
+WantedBy=multi-user.target
+
+# save above content as ip.service in your guest os in directory /etc/systemd/system/
